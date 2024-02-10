@@ -1,12 +1,11 @@
 package com.example.ws_calendarlayout.calendar.screen.container
 
-import android.content.Context
+import android.app.Activity
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ws_calendarlayout.base.BaseActivity
 import com.example.ws_calendarlayout.calendar.common.CalendarSideEffect
 import com.example.ws_calendarlayout.calendar.common.CalendarState
 import com.example.ws_calendarlayout.calendar.common.ClosePopupInterface
@@ -21,15 +20,14 @@ import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CalendarStayLayout @JvmOverloads constructor(
-    private val context: Context,
-    private val activity: BaseActivity<*>,
+class CalendarStayLayout constructor(
+    private val activity: Activity,
     private val lifecycleOwner: LifecycleOwner,
     private val checkIn: Date?,
     private val checkOut: Date?,
     private val closePopupInterface: ClosePopupInterface?,
     private val dismissCallBack: () -> Unit,
-) : FrameLayout(context) {
+) : FrameLayout(activity) {
 
     @Inject
     lateinit var calendarViewModel: CalendarViewModel
