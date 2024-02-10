@@ -66,4 +66,7 @@ dependencies {
     // oribit
     implementation("org.orbit-mvi:orbit-core:6.0.0")
     implementation("org.orbit-mvi:orbit-viewmodel:6.0.0")
+
+    // base
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("nb_base-1.0.7.aar"))))
 }
