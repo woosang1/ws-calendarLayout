@@ -91,7 +91,6 @@ class CalendarViewModel @Inject constructor()
         val diffDay = if (checkIn != null && checkOut != null) calculateDateDifference(checkIn, checkOut).toInt() else 0
         val diffDayStr = if (diffDay > 0) "·${diffDay}박" else ""
         val result = "$checkInStr - $checkOutStr $diffDayStr / 선택완료"
-        postAction(CalendarSideEffect.ShowBottomText(result))
     }
 
     fun getCheckInOutDate() :Pair<Date, Date>?{

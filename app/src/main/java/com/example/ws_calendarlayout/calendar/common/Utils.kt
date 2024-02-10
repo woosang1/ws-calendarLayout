@@ -1,5 +1,9 @@
 package com.example.ws_calendarlayout.calendar.common
 
+import android.content.Context
+import android.graphics.Typeface
+import androidx.annotation.FontRes
+import androidx.core.content.res.ResourcesCompat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -33,4 +37,8 @@ fun calculateDateDifference(calendarA: Calendar, calendarB: Calendar): Long {
     val differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24)
 
     return differenceInDays
+}
+
+fun Context.getFontInAssets(@FontRes resourceId: Int): Typeface? {
+    return ResourcesCompat.getFont(this, resourceId)
 }

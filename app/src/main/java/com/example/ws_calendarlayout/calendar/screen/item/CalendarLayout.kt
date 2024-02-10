@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ws_calendarlayout.R
+import com.example.ws_calendarlayout.calendar.common.ResourceData
 import com.example.ws_calendarlayout.calendar.screen.item.adapter.CalendarAdapter
 import com.example.ws_calendarlayout.calendar.viewModel.CalendarViewModel
 import com.example.ws_calendarlayout.databinding.CalendarActivityLayoutBinding
@@ -19,30 +20,29 @@ class CalendarLayout(context: Context, attrs: AttributeSet?) : FrameLayout(conte
     private var binding: CalendarActivityLayoutBinding = CalendarActivityLayoutBinding.inflate(LayoutInflater.from(context), this, true)
     private var daysOfWeekTitle = resources.getStringArray(R.array.days_of_week).toList()
 
-    fun setRecyclerView(calendarViewModel: CalendarViewModel) {
-        with(binding) {
-            calendarRecyclerView.apply {
-                layoutManager = GridLayoutManager(context, 7)
-                itemAnimator = DefaultItemAnimator()
-                adapter = CalendarAdapter(
-                    calendarViewModel = calendarViewModel,
-                    daysOfWeekTitle = daysOfWeekTitle
-                ).apply {
-                    setHasStableIds(true)
-                }
-                while (itemDecorationCount > 0) { removeItemDecorationAt(0) }
-                addItemDecoration(
-                    ItemGridDecorator(
-                        spanCount = 7,
-                        topMargin = 0.dpToPixel(),
-                        bottomMargin = 0.dpToPixel(),
-                        startMargin = 0.dpToPixel(),
-                        endMargin = 0.dpToPixel(),
-                        middleVerticalMargin = 24.dpToPixel(),
-                        middleHorizontalMargin = 0.dpToPixel()
-                    )
-                )
+    fun setRecyclerView(calendarViewModel: CalendarViewModel, resourceData: ResourceData) {
+        binding.calendarRecyclerView.apply {
+            layoutManager = GridLayoutManager(context, 7)
+            itemAnimator = DefaultItemAnimator()
+            adapter = CalendarAdapter(
+                calendarViewModel = calendarViewModel,
+                daysOfWeekTitle = daysOfWeekTitle,
+                resourceData = resourceData
+            ).apply {
+                setHasStableIds(true)
             }
+            while (itemDecorationCount > 0) { removeItemDecorationAt(0) }
+            addItemDecoration(
+                ItemGridDecorator(
+                    spanCount = 7,
+                    topMargin = 0.dpToPixel(),
+                    bottomMargin = 0.dpToPixel(),
+                    startMargin = 0.dpToPixel(),
+                    endMargin = 0.dpToPixel(),
+                    middleVerticalMargin = 24.dpToPixel(),
+                    middleHorizontalMargin = 0.dpToPixel()
+                )
+            )
         }
     }
 

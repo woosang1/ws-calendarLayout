@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ws_calendarlayout.calendar.common.CalendarSideEffect
 import com.example.ws_calendarlayout.calendar.common.CalendarState
-import com.example.ws_calendarlayout.calendar.common.ClosePopupInterface
 import com.example.ws_calendarlayout.calendar.common.Define.Companion.MAX_MONTH_CALENDAR
+import com.example.ws_calendarlayout.calendar.common.ResourceData
 import com.example.ws_calendarlayout.calendar.screen.adapter.ViewPagerAdapter
 import com.example.ws_calendarlayout.calendar.viewModel.CalendarViewModel
 import com.example.ws_calendarlayout.databinding.ActivityStayCalendarBinding
@@ -20,25 +20,22 @@ import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CalendarStayLayout constructor(
+class CalendarStayLayout(
     private val activity: Activity,
     private val lifecycleOwner: LifecycleOwner,
-    private val checkIn: Date?,
-    private val checkOut: Date?,
-    private val closePopupInterface: ClosePopupInterface?,
-    private val dismissCallBack: () -> Unit,
+    private val checkIn: Date,
+    private val checkOut: Date,
+    private val resourceData: ResourceData
 ) : FrameLayout(activity) {
 
     @Inject
     lateinit var calendarViewModel: CalendarViewModel
-    private var isClickableByCompleteBtn : Boolean = false
     private val binding: ActivityStayCalendarBinding = ActivityStayCalendarBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
         setInitData()
         setViewPager()
         setCalendarList()
-        setClickListener()
         moveCalendar()
         calendarViewModel.observe(lifecycleOwner = lifecycleOwner, state = ::render, sideEffect = ::handleSideEffect)
     }
@@ -51,20 +48,6 @@ class CalendarStayLayout constructor(
                     activity.runOnUiThread {
                         sideEffect.indexList.forEach { it?.let { index -> recyclerView.notifyItemChanged(index) } }
                         calendarViewModel.resetClearScreenList()
-                    }
-                }
-            }
-
-            is CalendarSideEffect.ShowBottomText -> {
-                binding.completeBtnText.apply {
-                    text = sideEffect.title
-                    if (calendarViewModel.isExistCheckInOut()){
-                        alpha = 1f
-                        isClickableByCompleteBtn = true
-                    }
-                    else {
-                        alpha = 0.3f
-                        isClickableByCompleteBtn = false
                     }
                 }
             }
@@ -98,8 +81,8 @@ class CalendarStayLayout constructor(
     }
 
     private fun setInitData(){
-        val checkIn = if (checkIn != null) Calendar.getInstance().apply { time = checkIn } else null
-        val checkOut = if (checkOut != null) Calendar.getInstance().apply { time = checkOut } else null
+        val checkIn = Calendar.getInstance().apply { time = checkIn }
+        val checkOut = Calendar.getInstance().apply { time = checkOut }
         calendarViewModel.setCheckInOut(Pair(checkIn, checkOut))
         calendarViewModel.showCompleteText()
     }
@@ -107,7 +90,10 @@ class CalendarStayLayout constructor(
     private fun setViewPager() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = ViewPagerAdapter(calendarViewModel)
+            adapter = ViewPagerAdapter(
+                calendarViewModel = calendarViewModel,
+                resourceData = resourceData
+            )
             itemAnimator = DefaultItemAnimator()
         }
     }
@@ -127,18 +113,6 @@ class CalendarStayLayout constructor(
                     }
                 }
             )
-        }
-    }
-
-    private fun setClickListener(){
-        binding.closeBtn.setOnClickListener { dismissCallBack.invoke() }
-        binding.completeBtn.setOnClickListener {
-            if (isClickableByCompleteBtn) {
-                it.setOnClickListener {
-//                    closePopupInterface?.close(calendarViewModel.getCheckInOutDate())
-                    dismissCallBack.invoke()
-                }
-            }
         }
     }
 

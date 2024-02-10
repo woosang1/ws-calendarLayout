@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ws_calendarlayout.base.BaseRecyclerAdapter
 import com.example.ws_calendarlayout.base.BaseViewHolder
+import com.example.ws_calendarlayout.calendar.common.ResourceData
 import com.example.ws_calendarlayout.calendar.screen.item.common.CalendarClickInterface
 import com.example.ws_calendarlayout.calendar.screen.item.common.CalendarItemState
 import com.example.ws_calendarlayout.calendar.screen.item.viewHolder.CalendarItemViewHolder
@@ -14,7 +15,8 @@ import java.util.Calendar
 
 class CalendarAdapter(
     private val calendarViewModel: CalendarViewModel,
-    private val daysOfWeekTitle: List<String>
+    private val daysOfWeekTitle: List<String>,
+    private val resourceData: ResourceData
 ) : BaseRecyclerAdapter<String>() {
 
     private var calendarDate: Calendar = Calendar.getInstance()
@@ -22,7 +24,8 @@ class CalendarAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return CalendarItemViewHolder(
             binding = CalendarActivityItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            dayTitle = daysOfWeekTitle
+            dayTitle = daysOfWeekTitle,
+            resourceData = resourceData
         )
     }
 
