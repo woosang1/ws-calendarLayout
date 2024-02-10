@@ -2,6 +2,7 @@ package com.example.ws_calendarlayout
 
 import android.view.LayoutInflater
 import com.example.ws_calendarlayout.base.BaseActivity
+import com.example.ws_calendarlayout.calendar.common.Define
 import com.example.ws_calendarlayout.calendar.common.ResourceData
 import com.example.ws_calendarlayout.calendar.screen.container.CalendarStayLayout
 import com.example.ws_calendarlayout.databinding.ActivityMainBinding
@@ -19,6 +20,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 lifecycleOwner = this@MainActivity,
                 checkIn = Date(),
                 checkOut = Calendar.getInstance().apply { add(Calendar.DATE, 2) }.time,
+                orientation = Define.ORIENTATION.VERTICAL,
                 resourceData = ResourceData(
                     title = ResourceData.Text(
                         size = 14,

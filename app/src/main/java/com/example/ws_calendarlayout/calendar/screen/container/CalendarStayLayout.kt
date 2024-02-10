@@ -6,8 +6,11 @@ import android.widget.FrameLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2.Orientation
 import com.example.ws_calendarlayout.calendar.common.CalendarSideEffect
 import com.example.ws_calendarlayout.calendar.common.CalendarState
+import com.example.ws_calendarlayout.calendar.common.Define
 import com.example.ws_calendarlayout.calendar.common.Define.Companion.MAX_MONTH_CALENDAR
 import com.example.ws_calendarlayout.calendar.common.ResourceData
 import com.example.ws_calendarlayout.calendar.screen.adapter.ViewPagerAdapter
@@ -25,6 +28,7 @@ class CalendarStayLayout(
     private val lifecycleOwner: LifecycleOwner,
     private val checkIn: Date,
     private val checkOut: Date,
+    private val orientation: Define.ORIENTATION = Define.ORIENTATION.VERTICAL,
     private val resourceData: ResourceData
 ) : FrameLayout(activity) {
 
@@ -89,7 +93,9 @@ class CalendarStayLayout(
 
     private fun setViewPager() {
         binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(context,
+                if (orientation == Define.ORIENTATION.HORIZONTAL) LinearLayoutManager.HORIZONTAL
+                else LinearLayoutManager.VERTICAL, false)
             adapter = ViewPagerAdapter(
                 calendarViewModel = calendarViewModel,
                 resourceData = resourceData
