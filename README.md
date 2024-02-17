@@ -20,9 +20,7 @@
 
 ## Preview
 <img src="https://github.com/woosang1/ws-calendarLayout/assets/45825518/bd61fceb-e677-48c2-b0cf-f4a7638fb95e" alt="preview" width="500" height="1000">
-<br>
 <img src="https://github.com/woosang1/ws-calendarLayout/assets/45825518/555c456a-2814-4bc0-a5e1-219552003876" alt="preview" width="500" height="1000">
-
 
 ## Including in your project 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.skydoves/colorpickerview.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.skydoves%22%20AND%20a:%22colorpickerview%22)
