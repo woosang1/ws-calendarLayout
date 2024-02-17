@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ws_calendarlayout.R
-import com.example.ws_calendarlayout.calendar.common.ResourceData
+import com.example.ws_calendarlayout.calendar.common.CalendarData
 import com.example.ws_calendarlayout.calendar.screen.item.adapter.CalendarAdapter
 import com.example.ws_calendarlayout.calendar.viewModel.CalendarViewModel
 import com.example.ws_calendarlayout.databinding.CalendarActivityLayoutBinding
@@ -20,14 +20,14 @@ class CalendarLayout(context: Context, attrs: AttributeSet?) : FrameLayout(conte
     private var binding: CalendarActivityLayoutBinding = CalendarActivityLayoutBinding.inflate(LayoutInflater.from(context), this, true)
     private var daysOfWeekTitle = resources.getStringArray(R.array.days_of_week).toList()
 
-    fun setRecyclerView(calendarViewModel: CalendarViewModel, resourceData: ResourceData) {
+    fun setRecyclerView(calendarViewModel: CalendarViewModel, calendarData: CalendarData) {
         binding.calendarRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 7)
             itemAnimator = DefaultItemAnimator()
             adapter = CalendarAdapter(
                 calendarViewModel = calendarViewModel,
                 daysOfWeekTitle = daysOfWeekTitle,
-                resourceData = resourceData
+                calendarData = calendarData
             ).apply {
                 setHasStableIds(true)
             }

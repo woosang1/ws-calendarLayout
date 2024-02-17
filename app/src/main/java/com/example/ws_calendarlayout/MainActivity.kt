@@ -3,7 +3,7 @@ package com.example.ws_calendarlayout
 import android.view.LayoutInflater
 import com.example.ws_calendarlayout.base.BaseActivity
 import com.example.ws_calendarlayout.calendar.common.Define
-import com.example.ws_calendarlayout.calendar.common.ResourceData
+import com.example.ws_calendarlayout.calendar.common.TextResource
 import com.example.ws_calendarlayout.calendar.screen.container.CalendarStayLayout
 import com.example.ws_calendarlayout.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,29 +17,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.rootLayout.addView(
             CalendarStayLayout(
                 activity = this@MainActivity,
-                lifecycleOwner = this@MainActivity,
-                checkIn = Date(),
-                checkOut = Calendar.getInstance().apply { add(Calendar.DATE, 2) }.time,
-                orientation = Define.ORIENTATION.VERTICAL,
-                resourceData = ResourceData(
-                    title = ResourceData.Text(
+                lifecycleOwner = this@MainActivity
+            ).apply {
+                setOrientation(orientation = Define.ORIENTATION.VERTICAL)
+                setCheckIn(checkIn = Date())
+                setCheckOut(checkOut = Calendar.getInstance().apply { add(Calendar.DATE, 2) }.time)
+                setTextResourceByTitle(
+                    titleTextResource = TextResource(
                         size = 14,
                         color = R.color.black,
                         font = null
-                    ),
-                    daysOfTheWeek = ResourceData.Text(
+                    )
+                )
+                setTextResourceByDaysOfTheWeek(
+                    daysOfTheWeekTextResource = TextResource(
                         size = 10,
                         color = R.color.gray_2,
                         font = null
-                    ),
-                    day = ResourceData.Text(
+                    )
+                )
+                setTextResourceByDay(
+                    daysTextResource = TextResource(
                         size = 10,
                         color = R.color.gray_3,
                         font = null
-                    ),
-                    descriptionFont = null
+                    )
                 )
-            )
+                create()
+            }
         )
     }
 }

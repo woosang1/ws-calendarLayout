@@ -3,7 +3,7 @@ package com.example.ws_calendarlayout.calendar.screen.item.viewHolder
 import android.util.TypedValue
 import android.view.View
 import com.example.ws_calendarlayout.base.BaseViewHolder
-import com.example.ws_calendarlayout.calendar.common.ResourceData
+import com.example.ws_calendarlayout.calendar.common.CalendarData
 import com.example.ws_calendarlayout.calendar.common.getFontInAssets
 import com.example.ws_calendarlayout.databinding.CalendarActivityItemLayoutBinding
 import com.example.ws_calendarlayout.calendar.screen.item.common.CalendarClickInterface
@@ -14,7 +14,7 @@ import java.util.Calendar
 class CalendarItemViewHolder(
     private val binding: CalendarActivityItemLayoutBinding,
     private val dayTitle: List<String>,
-    private val resourceData: ResourceData
+    private val calendarData: CalendarData
 ) : BaseViewHolder(binding.root) {
 
     private lateinit var calendarClickInterface: CalendarClickInterface
@@ -22,11 +22,11 @@ class CalendarItemViewHolder(
 
     fun onBind(value: String, calendarItem: Calendar?, calendarItemState: CalendarItemState) {
         this.calendarItem = calendarItem
-        setView(value = value, calendarItemState = calendarItemState, resourceData = resourceData)
+        setView(value = value, calendarItemState = calendarItemState, calendarData = calendarData)
         binding.executePendingBindings()
     }
 
-    private fun setView(value: String, calendarItemState: CalendarItemState, resourceData: ResourceData) {
+    private fun setView(value: String, calendarItemState: CalendarItemState, calendarData: CalendarData) {
         binding.rootLayout.apply {
             setBackgroundResource(0)
             setOnClickListener {  }
@@ -36,9 +36,9 @@ class CalendarItemViewHolder(
         binding.calendarItemText.apply {
             text = value
             alpha = calendarItemState.alpha
-            setTextSize(TypedValue.COMPLEX_UNIT_DIP, resourceData.day.size.toFloat())
-            setTextColorResource(resourceData.day.color)
-            resourceData.day.font?.let { typeface = context.getFontInAssets(it) }
+            setTextSize(TypedValue.COMPLEX_UNIT_DIP, calendarData.daysTextResource.size.toFloat())
+            setTextColorResource(calendarData.daysTextResource.color)
+            calendarData.daysTextResource.font?.let { typeface = context.getFontInAssets(it) }
         }
 
         val isDay = !dayTitle.contains(value)
@@ -46,9 +46,9 @@ class CalendarItemViewHolder(
         // 요일
         if (!isDay){
             binding.calendarItemText.apply {
-                setTextSize(TypedValue.COMPLEX_UNIT_DIP, resourceData.daysOfTheWeek.size.toFloat())
-                setTextColorResource(resourceData.daysOfTheWeek.color)
-                resourceData.daysOfTheWeek.font?.let { typeface = context.getFontInAssets(it) }
+                setTextSize(TypedValue.COMPLEX_UNIT_DIP, calendarData.daysOfTheWeekTextResource.size.toFloat())
+                setTextColorResource(calendarData.daysOfTheWeekTextResource.color)
+                calendarData.daysOfTheWeekTextResource.font?.let { typeface = context.getFontInAssets(it) }
             }
             binding.descriptionTextView.visibility = View.GONE
         }

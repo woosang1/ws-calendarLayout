@@ -1,17 +1,18 @@
 package com.example.ws_calendarlayout.calendar.common
 
-import com.example.ws_calendarlayout.calendar.screen.item.common.CalendarItemState
+import com.example.ws_calendarlayout.R
+import java.util.Date
 
-data class ResourceData(
-    val title: Text,
-    val daysOfTheWeek: Text,
-    val day: Text,
-    val descriptionFont: Int?,
-    val calendarItemState: CalendarItemState? = null
-) {
-    data class Text(
-        val size: Int,
-        val color: Int,
-        val font: Int?
-    )
-}
+data class CalendarData(
+    val checkIn: Date,
+    val checkOut: Date,
+    val titleTextResource: TextResource,
+    val daysOfTheWeekTextResource: TextResource,
+    val daysTextResource: TextResource
+)
+
+data class TextResource(
+    val size: Int = 10,
+    val color: Int = R.color.black,
+    val font: Int? = null
+)

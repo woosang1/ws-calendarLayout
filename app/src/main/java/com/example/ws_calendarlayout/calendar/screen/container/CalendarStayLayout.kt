@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2.Orientation
+import com.example.ws_calendarlayout.calendar.common.CalendarData
 import com.example.ws_calendarlayout.calendar.common.CalendarSideEffect
 import com.example.ws_calendarlayout.calendar.common.CalendarState
 import com.example.ws_calendarlayout.calendar.common.Define
 import com.example.ws_calendarlayout.calendar.common.Define.Companion.MAX_MONTH_CALENDAR
-import com.example.ws_calendarlayout.calendar.common.ResourceData
+import com.example.ws_calendarlayout.calendar.common.TextResource
 import com.example.ws_calendarlayout.calendar.screen.adapter.ViewPagerAdapter
 import com.example.ws_calendarlayout.calendar.viewModel.CalendarViewModel
 import com.example.ws_calendarlayout.databinding.ActivityStayCalendarBinding
@@ -25,24 +26,20 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CalendarStayLayout(
     private val activity: Activity,
-    private val lifecycleOwner: LifecycleOwner,
-    private val checkIn: Date,
-    private val checkOut: Date,
-    private val orientation: Define.ORIENTATION = Define.ORIENTATION.VERTICAL,
-    private val resourceData: ResourceData
+    private val lifecycleOwner: LifecycleOwner
 ) : FrameLayout(activity) {
+
+    private val binding: ActivityStayCalendarBinding = ActivityStayCalendarBinding.inflate(LayoutInflater.from(context), this, true)
+    private var orientation: Define.ORIENTATION = Define.ORIENTATION.VERTICAL
+    private var checkIn: Date = Date()
+    private var checkOut: Date = Date()
+    private var titleTextResource = TextResource()
+    private var daysOfTheWeekTextResource = TextResource()
+    private var daysTextResource = TextResource()
 
     @Inject
     lateinit var calendarViewModel: CalendarViewModel
-    private val binding: ActivityStayCalendarBinding = ActivityStayCalendarBinding.inflate(LayoutInflater.from(context), this, true)
 
-    init {
-        setInitData()
-        setViewPager()
-        setCalendarList()
-        moveCalendar()
-        calendarViewModel.observe(lifecycleOwner = lifecycleOwner, state = ::render, sideEffect = ::handleSideEffect)
-    }
     private fun render(state: CalendarState){ }
 
     private fun handleSideEffect(sideEffect: CalendarSideEffect) {
@@ -84,6 +81,14 @@ class CalendarStayLayout(
         }
     }
 
+    fun create(){
+        setInitData()
+        setViewPager()
+        setCalendarList()
+        moveCalendar()
+        calendarViewModel.observe(lifecycleOwner = lifecycleOwner, state = ::render, sideEffect = ::handleSideEffect)
+    }
+
     private fun setInitData(){
         val checkIn = Calendar.getInstance().apply { time = checkIn }
         val checkOut = Calendar.getInstance().apply { time = checkOut }
@@ -98,7 +103,13 @@ class CalendarStayLayout(
                 else LinearLayoutManager.VERTICAL, false)
             adapter = ViewPagerAdapter(
                 calendarViewModel = calendarViewModel,
-                resourceData = resourceData
+                calendarData = CalendarData(
+                    checkIn = checkIn,
+                    checkOut = checkOut,
+                    titleTextResource = titleTextResource,
+                    daysOfTheWeekTextResource = daysOfTheWeekTextResource,
+                    daysTextResource = daysTextResource
+                )
             )
             itemAnimator = DefaultItemAnimator()
         }
@@ -145,5 +156,13 @@ class CalendarStayLayout(
         }
         else binding.recyclerView.scrollToPosition(0)
     }
+
+    fun setOrientation(orientation: Define.ORIENTATION){ this.orientation = orientation }
+    fun setCheckIn(checkIn: Date){ this.checkIn = checkIn }
+    fun setCheckOut(checkOut: Date){ this.checkOut = checkOut }
+    fun setTextResourceByTitle(titleTextResource : TextResource){ this.titleTextResource = titleTextResource }
+    fun setTextResourceByDaysOfTheWeek(daysOfTheWeekTextResource : TextResource){ this.daysOfTheWeekTextResource = daysOfTheWeekTextResource }
+    fun setTextResourceByDay(daysTextResource : TextResource){ this.daysTextResource = daysTextResource }
+
 
 }
