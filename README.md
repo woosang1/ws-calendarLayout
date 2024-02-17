@@ -41,7 +41,7 @@ dependencies {
 ## How to Use
 Calnedar support Kotlin, so you can reference it by your language.
 
-### Create Balloon with Kotlin
+### Create Calendar with Kotlin
 We can create an instance of the Calnedar with the `CalendarStayLayout` class.
 #### xml
 ```xml
@@ -85,6 +85,77 @@ binding.calendarLayout.apply {
     create()
 }
 ```
+
+### Orientation
+Horizontal or Vertical<br>
+```kotlin
+setOrientation(orientation = ORIENTATION.HORIZONTAL) ## Horizontal
+setOrientation(orientation = ORIENTATION.HORIZONTAL) ## Vertical
+```
+
+### MaxMonth
+How many months will you expose? Default: 6<br>
+```kotlin
+setMaxMonthCalendar(maxMonthCalendar = 4)
+```
+
+### CheckIn & CheckOut
+At the start of the Calendar, specify the date of check-in and check-out.<br>
+```kotlin
+setCheckIn(checkIn = Date()) ## today
+setCheckOut(checkOut = Calendar.getInstance().apply { add(Calendar.DATE, 2) }.time) ## today+2
+```
+
+### Title
+Sets the font for calendar information that is exposed to the kelinder. (yyyy년 M월)<br>
+```kotlin
+setTextResourceByTitle(
+    titleTextResource = TextResource(
+        size = 14,
+        color = R.color.black,
+        font = null
+    )
+)
+```
+
+### DaysOfTheWeek
+Set the font for the day of the week you are exposed to at the top of the calendar (Sun/Monday/Tuesday/Wed/Thursday/Fri/Saturday)<br>
+```kotlin
+setTextResourceByDaysOfTheWeek(
+    daysOfTheWeekTextResource = TextResource(
+        size = 10,
+        color = R.color.gray_2,
+        font = null
+    )
+)
+```
+
+### Day
+Sets the font for the day of exposure to the calendar.<br>
+```kotlin
+setTextResourceByDay(
+    daysTextResource = TextResource(
+        size = 10,
+        color = R.color.gray_3,
+        font = null
+    )
+)
+```
+
+### CalendarItemState
+Set font and background according to the status that appears in the kelinder.<br>
+```kotlin
+setCalendarItemState(
+    mCalendarItemState = CalendarItemState.TODAY.apply {
+        text = "Today"
+        textColorRes = R.color.blue
+        bgRes = null
+        alpha = 1.0f
+        isClickable = true
+    }
+)
+```
+
 
 
 # License
