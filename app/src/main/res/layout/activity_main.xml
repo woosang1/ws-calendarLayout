@@ -10,6 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.example.ws_calendarlayout.calendar.screen.container.CalendarStayLayout
+            android:id="@+id/calendarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.example.ws_calendarlayout.calendar.screen.container.CalendarStayLayout>
+
     </FrameLayout>
 
 </layout>

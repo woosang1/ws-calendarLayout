@@ -1,6 +1,8 @@
 package com.example.ws_calendarlayout.calendar.screen.container
 
 import android.app.Activity
+import android.content.Context
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.lifecycle.LifecycleOwner
@@ -18,18 +20,22 @@ import com.example.ws_calendarlayout.calendar.screen.adapter.ViewPagerAdapter
 import com.example.ws_calendarlayout.calendar.viewModel.CalendarViewModel
 import com.example.ws_calendarlayout.databinding.ActivityStayCalendarBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.viewmodel.observe
 import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CalendarStayLayout(
-    private val activity: Activity,
-    private val lifecycleOwner: LifecycleOwner
-) : FrameLayout(activity) {
+class CalendarStayLayout @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val binding: ActivityStayCalendarBinding = ActivityStayCalendarBinding.inflate(LayoutInflater.from(context), this, true)
+    private var lifecycleOwner: LifecycleOwner? = null
     private var orientation: Define.ORIENTATION = Define.ORIENTATION.VERTICAL
     private var checkIn: Date = Date()
     private var checkOut: Date = Date()
@@ -46,7 +52,7 @@ class CalendarStayLayout(
         when(sideEffect){
             is CalendarSideEffect.ClearScreen -> {
                 (binding.recyclerView.adapter as? ViewPagerAdapter)?.let { recyclerView ->
-                    activity.runOnUiThread {
+                    MainScope().launch {
                         sideEffect.indexList.forEach { it?.let { index -> recyclerView.notifyItemChanged(index) } }
                         calendarViewModel.resetClearScreenList()
                     }
@@ -69,7 +75,7 @@ class CalendarStayLayout(
 
                 if (startIndex != null && endIndex != null) {
                     if (startIndex <= endIndex) {
-                        activity.runOnUiThread {
+                        MainScope().launch {
                             for (i in startIndex until endIndex + 1) {
                                 calendarViewModel.addClearScreenList(i)
                                 (binding.recyclerView.adapter as? ViewPagerAdapter)?.notifyItemChanged(i)
@@ -86,7 +92,7 @@ class CalendarStayLayout(
         setViewPager()
         setCalendarList()
         moveCalendar()
-        calendarViewModel.observe(lifecycleOwner = lifecycleOwner, state = ::render, sideEffect = ::handleSideEffect)
+        lifecycleOwner?.let { calendarViewModel.observe(lifecycleOwner = it, state = ::render, sideEffect = ::handleSideEffect) }
     }
 
     private fun setInitData(){
@@ -156,6 +162,8 @@ class CalendarStayLayout(
         }
         else binding.recyclerView.scrollToPosition(0)
     }
+
+    fun setLifecycleOwner(lifecycleOwner: LifecycleOwner){ this.lifecycleOwner = lifecycleOwner }
 
     fun setOrientation(orientation: Define.ORIENTATION){ this.orientation = orientation }
     fun setCheckIn(checkIn: Date){ this.checkIn = checkIn }
