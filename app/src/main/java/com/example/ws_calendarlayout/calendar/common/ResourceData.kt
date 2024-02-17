@@ -9,7 +9,8 @@ data class CalendarData(
     val checkOut: Date,
     val titleTextResource: TextResource,
     val daysOfTheWeekTextResource: TextResource,
-    val daysTextResource: TextResource
+    val daysTextResource: TextResource,
+    val descriptionResource: TextResource
 )
 
 data class TextResource(

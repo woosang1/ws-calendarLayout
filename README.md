@@ -82,6 +82,13 @@ binding.calendarLayout.apply {
             font = null
         )
     )
+    setDescriptionFont(
+        descriptionResource = TextResource(
+            size = 10,
+            color = R.color.gray_3,
+            font = R.font.pretendard_regular
+        )
+    )
     create()
 }
 ```
@@ -138,6 +145,19 @@ setTextResourceByDay(
         size = 10,
         color = R.color.gray_3,
         font = null
+    )
+)
+```
+
+### Description
+You can change the font of the description text.
+(Color cannot be changed. / It can be changed to textColorRes in CalendarItemState.)<br>
+```kotlin
+setDescriptionFont(
+    descriptionResource = TextResource(
+        size = 10,
+        color = R.color.gray_3,
+        font = R.font.pretendard_regular
     )
 )
 ```

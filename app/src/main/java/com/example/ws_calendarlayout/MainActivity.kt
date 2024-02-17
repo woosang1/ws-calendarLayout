@@ -2,6 +2,7 @@ package com.example.ws_calendarlayout
 
 import android.view.LayoutInflater
 import com.example.ws_calendarlayout.base.BaseActivity
+import com.example.ws_calendarlayout.calendar.common.CalendarItemState
 import com.example.ws_calendarlayout.calendar.common.ORIENTATION
 import com.example.ws_calendarlayout.calendar.common.TextResource
 import com.example.ws_calendarlayout.databinding.ActivityMainBinding
@@ -35,6 +36,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             )
             setTextResourceByDay(
                 daysTextResource = TextResource(
+                    size = 10,
+                    color = R.color.gray_3,
+                    font = null
+                )
+            )
+            setDescriptionFont(
+                descriptionResource = TextResource(
                     size = 10,
                     color = R.color.gray_3,
                     font = null

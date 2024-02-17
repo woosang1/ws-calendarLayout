@@ -61,6 +61,8 @@ class CalendarItemViewHolder(
             binding.descriptionTextView.apply {
                 setTextColorResource(calendarItemState.textColorRes)
                 text = calendarItemState.text
+                setTextSize(TypedValue.COMPLEX_UNIT_DIP, calendarData.descriptionResource.size.toFloat())
+                calendarData.descriptionResource.font?.let { typeface = context.getFontInAssets(it) }
                 visibility = if (calendarItemState.text.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             }
 
