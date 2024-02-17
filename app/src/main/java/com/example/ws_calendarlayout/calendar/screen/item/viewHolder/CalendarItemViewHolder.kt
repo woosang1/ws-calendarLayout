@@ -4,10 +4,10 @@ import android.util.TypedValue
 import android.view.View
 import com.example.ws_calendarlayout.base.BaseViewHolder
 import com.example.ws_calendarlayout.calendar.common.CalendarData
+import com.example.ws_calendarlayout.calendar.common.CalendarItemState
 import com.example.ws_calendarlayout.calendar.common.getFontInAssets
 import com.example.ws_calendarlayout.databinding.CalendarActivityItemLayoutBinding
 import com.example.ws_calendarlayout.calendar.screen.item.common.CalendarClickInterface
-import com.example.ws_calendarlayout.calendar.screen.item.common.CalendarItemState
 import com.example.ws_calendarlayout.utils.setTextColorResource
 import java.util.Calendar
 

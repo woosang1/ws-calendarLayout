@@ -1,12 +1,12 @@
 package com.example.ws_calendarlayout.calendar.viewModel
 
 import com.example.ws_calendarlayout.base.OrbitViewModel
+import com.example.ws_calendarlayout.calendar.common.CalendarItemState
 import com.example.ws_calendarlayout.calendar.common.CalendarSideEffect
 import com.example.ws_calendarlayout.calendar.common.CalendarState
 import com.example.ws_calendarlayout.calendar.common.calculateDateDifference
 import com.example.ws_calendarlayout.calendar.common.equalCalendar
 import com.example.ws_calendarlayout.calendar.common.getCalendarFormatter
-import com.example.ws_calendarlayout.calendar.screen.item.common.CalendarItemState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Calendar
 import java.util.Date

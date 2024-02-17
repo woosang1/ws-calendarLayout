@@ -1,6 +1,5 @@
 package com.example.ws_calendarlayout.calendar.screen.container
 
-import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -8,13 +7,12 @@ import android.widget.FrameLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2.Orientation
 import com.example.ws_calendarlayout.calendar.common.CalendarData
+import com.example.ws_calendarlayout.calendar.common.CalendarItemState
 import com.example.ws_calendarlayout.calendar.common.CalendarSideEffect
 import com.example.ws_calendarlayout.calendar.common.CalendarState
-import com.example.ws_calendarlayout.calendar.common.Define
-import com.example.ws_calendarlayout.calendar.common.Define.Companion.MAX_MONTH_CALENDAR
+import com.example.ws_calendarlayout.calendar.common.MAX_MONTH_CALENDAR
+import com.example.ws_calendarlayout.calendar.common.ORIENTATION
 import com.example.ws_calendarlayout.calendar.common.TextResource
 import com.example.ws_calendarlayout.calendar.screen.adapter.ViewPagerAdapter
 import com.example.ws_calendarlayout.calendar.viewModel.CalendarViewModel
@@ -36,7 +34,10 @@ class CalendarStayLayout @JvmOverloads constructor(
 
     private val binding: ActivityStayCalendarBinding = ActivityStayCalendarBinding.inflate(LayoutInflater.from(context), this, true)
     private var lifecycleOwner: LifecycleOwner? = null
-    private var orientation: Define.ORIENTATION = Define.ORIENTATION.VERTICAL
+
+    /** option **/
+    private var maxMonthCalendar: Int = MAX_MONTH_CALENDAR
+    private var orientation: ORIENTATION = ORIENTATION.VERTICAL
     private var checkIn: Date = Date()
     private var checkOut: Date = Date()
     private var titleTextResource = TextResource()
@@ -105,11 +106,12 @@ class CalendarStayLayout @JvmOverloads constructor(
     private fun setViewPager() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context,
-                if (orientation == Define.ORIENTATION.HORIZONTAL) LinearLayoutManager.HORIZONTAL
+                if (orientation == ORIENTATION.HORIZONTAL) LinearLayoutManager.HORIZONTAL
                 else LinearLayoutManager.VERTICAL, false)
             adapter = ViewPagerAdapter(
                 calendarViewModel = calendarViewModel,
                 calendarData = CalendarData(
+                    maxMonthCalendar = maxMonthCalendar,
                     checkIn = checkIn,
                     checkOut = checkOut,
                     titleTextResource = titleTextResource,
@@ -129,7 +131,7 @@ class CalendarStayLayout @JvmOverloads constructor(
                     // 최대 6개 -> 오늘
                     val today = Calendar.getInstance()
                     add(today)
-                    for (i in 1 until MAX_MONTH_CALENDAR) {
+                    for (i in 1 until maxMonthCalendar) {
                         val todayCopy = today.clone() as Calendar
                         todayCopy.add(Calendar.MONTH, i)
                         add(todayCopy)
@@ -165,12 +167,84 @@ class CalendarStayLayout @JvmOverloads constructor(
 
     fun setLifecycleOwner(lifecycleOwner: LifecycleOwner){ this.lifecycleOwner = lifecycleOwner }
 
-    fun setOrientation(orientation: Define.ORIENTATION){ this.orientation = orientation }
+    /**
+     * only maxMonthCalendar > 0
+     */
+    fun setMaxMonthCalendar(maxMonthCalendar: Int){ if (maxMonthCalendar > 0) this.maxMonthCalendar = maxMonthCalendar }
+    fun setOrientation(orientation: ORIENTATION){ this.orientation = orientation }
     fun setCheckIn(checkIn: Date){ this.checkIn = checkIn }
     fun setCheckOut(checkOut: Date){ this.checkOut = checkOut }
     fun setTextResourceByTitle(titleTextResource : TextResource){ this.titleTextResource = titleTextResource }
     fun setTextResourceByDaysOfTheWeek(daysOfTheWeekTextResource : TextResource){ this.daysOfTheWeekTextResource = daysOfTheWeekTextResource }
     fun setTextResourceByDay(daysTextResource : TextResource){ this.daysTextResource = daysTextResource }
 
+    fun setCalendarItemState(mCalendarItemState: CalendarItemState){
+        when(mCalendarItemState){
+            CalendarItemState.CHECK_IN -> {
+                setRealCalendarItemState(
+                    beforeCalendarItemState = CalendarItemState.CHECK_IN,
+                    afterCalendarItemState = mCalendarItemState
+                )
+            }
+            CalendarItemState.CHECK_OUT -> {
+                setRealCalendarItemState(
+                    beforeCalendarItemState = CalendarItemState.CHECK_OUT,
+                    afterCalendarItemState = mCalendarItemState
+                )
+            }
+            CalendarItemState.TODAY -> {
+                setRealCalendarItemState(
+                    beforeCalendarItemState = CalendarItemState.TODAY,
+                    afterCalendarItemState = mCalendarItemState
+                )
+            }
+            CalendarItemState.BEFORE_TODAY -> {
+                setRealCalendarItemState(
+                    beforeCalendarItemState = CalendarItemState.BEFORE_TODAY,
+                    afterCalendarItemState = mCalendarItemState
+                )
+            }
+            CalendarItemState.BEFORE_TODAY_WEEKEND -> {
+                setRealCalendarItemState(
+                    beforeCalendarItemState = CalendarItemState.BEFORE_TODAY_WEEKEND,
+                    afterCalendarItemState = mCalendarItemState
+                )
+            }
+            CalendarItemState.WEEKEND -> {
+                setRealCalendarItemState(
+                    beforeCalendarItemState = CalendarItemState.WEEKEND,
+                    afterCalendarItemState = mCalendarItemState
+                )
+            }
+            CalendarItemState.RANGE -> {
+                setRealCalendarItemState(
+                    beforeCalendarItemState = CalendarItemState.RANGE,
+                    afterCalendarItemState = mCalendarItemState
+                )
+            }
+            CalendarItemState.RANGE_WEEKEND -> {
+                setRealCalendarItemState(
+                    beforeCalendarItemState = CalendarItemState.RANGE_WEEKEND,
+                    afterCalendarItemState = mCalendarItemState
+                )
+            }
+            CalendarItemState.NONE -> {
+                setRealCalendarItemState(
+                    beforeCalendarItemState = CalendarItemState.NONE,
+                    afterCalendarItemState = mCalendarItemState
+                )
+            }
+        }
+    }
+
+    private fun setRealCalendarItemState(beforeCalendarItemState: CalendarItemState, afterCalendarItemState: CalendarItemState){
+        beforeCalendarItemState.apply {
+            text = afterCalendarItemState.text
+            textColorRes = afterCalendarItemState.textColorRes
+            bgRes = afterCalendarItemState.bgRes
+            alpha = afterCalendarItemState.alpha
+            isClickable = afterCalendarItemState.isClickable
+        }
+    }
 
 }

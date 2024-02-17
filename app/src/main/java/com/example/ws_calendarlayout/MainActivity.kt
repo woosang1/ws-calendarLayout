@@ -2,7 +2,7 @@ package com.example.ws_calendarlayout
 
 import android.view.LayoutInflater
 import com.example.ws_calendarlayout.base.BaseActivity
-import com.example.ws_calendarlayout.calendar.common.Define
+import com.example.ws_calendarlayout.calendar.common.ORIENTATION
 import com.example.ws_calendarlayout.calendar.common.TextResource
 import com.example.ws_calendarlayout.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,7 +15,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onInitBinding() {
         binding.calendarLayout.apply {
             setLifecycleOwner(this@MainActivity)
-            setOrientation(orientation = Define.ORIENTATION.VERTICAL)
+            setMaxMonthCalendar(maxMonthCalendar = 4)
+            setOrientation(orientation = ORIENTATION.VERTICAL)
             setCheckIn(checkIn = Date())
             setCheckOut(checkOut = Calendar.getInstance().apply { add(Calendar.DATE, 2) }.time)
             setTextResourceByTitle(

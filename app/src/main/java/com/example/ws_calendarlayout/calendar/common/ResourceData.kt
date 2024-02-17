@@ -4,6 +4,7 @@ import com.example.ws_calendarlayout.R
 import java.util.Date
 
 data class CalendarData(
+    val maxMonthCalendar: Int,
     val checkIn: Date,
     val checkOut: Date,
     val titleTextResource: TextResource,
