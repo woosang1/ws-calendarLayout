@@ -17,6 +17,14 @@
 <img src="/art/art1.gif" width="31%"/>
 </p>
 
+
+## preview
+
+
+
+
+
+
 ## Including in your project 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.skydoves/colorpickerview.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.skydoves%22%20AND%20a:%22colorpickerview%22)
 
@@ -29,6 +37,55 @@ dependencies {
     implementation "com.github.woosang1:ws_calendarLayout:1.0.0"
 }
 ```
+
+## How to Use
+Calnedar support Kotlin, so you can reference it by your language.
+
+### Create Balloon with Kotlin
+We can create an instance of the Calnedar with the `CalendarStayLayout` class.
+#### xml
+```xml
+<com.example.ws_calendarlayout.calendar.screen.container.CalendarStayLayout
+            android:id="@+id/calendarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+</com.example.ws_calendarlayout.calendar.screen.container.CalendarStayLayout>
+```
+
+#### .kt
+```kotlin
+binding.calendarLayout.apply {
+    setLifecycleOwner(this@MainActivity)
+    setMaxMonthCalendar(maxMonthCalendar = 4)
+    setOrientation(orientation = ORIENTATION.HORIZONTAL)
+    setCheckIn(checkIn = Date())
+    setCheckOut(checkOut = Calendar.getInstance().apply { add(Calendar.DATE, 2) }.time)
+    setTextResourceByTitle(
+        titleTextResource = TextResource(
+            size = 14,
+            color = R.color.black,
+            font = null
+        )
+    )
+    setTextResourceByDaysOfTheWeek(
+        daysOfTheWeekTextResource = TextResource(
+            size = 10,
+            color = R.color.gray_2,
+            font = null
+        )
+    )
+    setTextResourceByDay(
+        daysTextResource = TextResource(
+            size = 10,
+            color = R.color.gray_3,
+            font = null
+        )
+    )
+    create()
+}
+```
+
 
 # License
 ```xml
