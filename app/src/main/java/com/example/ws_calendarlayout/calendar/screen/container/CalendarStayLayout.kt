@@ -43,7 +43,7 @@ class CalendarStayLayout @JvmOverloads constructor(
     private var titleTextResource = TextResource()
     private var daysOfTheWeekTextResource = TextResource()
     private var daysTextResource = TextResource()
-    private var descriptionFont = TextResource()
+    private var descriptionResource = TextResource()
 
     @Inject
     lateinit var calendarViewModel: CalendarViewModel
@@ -118,7 +118,7 @@ class CalendarStayLayout @JvmOverloads constructor(
                     titleTextResource = titleTextResource,
                     daysOfTheWeekTextResource = daysOfTheWeekTextResource,
                     daysTextResource = daysTextResource,
-                    descriptionResource = descriptionFont
+                    descriptionResource = descriptionResource
                 )
             )
             itemAnimator = DefaultItemAnimator()
@@ -179,8 +179,7 @@ class CalendarStayLayout @JvmOverloads constructor(
     fun setTextResourceByTitle(titleTextResource : TextResource){ this.titleTextResource = titleTextResource }
     fun setTextResourceByDaysOfTheWeek(daysOfTheWeekTextResource : TextResource){ this.daysOfTheWeekTextResource = daysOfTheWeekTextResource }
     fun setTextResourceByDay(daysTextResource : TextResource){ this.daysTextResource = daysTextResource }
-
-    fun setDescriptionFont(descriptionResource: TextResource) { this.descriptionFont = descriptionFont}
+    fun setDescriptionResource(descriptionResource: TextResource) { this.descriptionResource = descriptionResource}
 
     fun setCalendarItemState(mCalendarItemState: CalendarItemState){
         when(mCalendarItemState){
