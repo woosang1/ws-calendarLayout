@@ -18,11 +18,10 @@
 </p>
 
 
-## preview
-
-
-
-
+## Preview
+<img src="https://github.com/woosang1/ws-calendarLayout/assets/45825518/bd61fceb-e677-48c2-b0cf-f4a7638fb95e" alt="preview" width="500" height="1000">
+<br>
+https://github.com/woosang1/ws-calendarLayout/assets/45825518/f332ac1d-faf5-4428-a54d-0f4b6f510474
 
 
 ## Including in your project 
@@ -99,6 +98,15 @@ Horizontal or Vertical<br>
 setOrientation(orientation = ORIENTATION.HORIZONTAL) ## Horizontal
 setOrientation(orientation = ORIENTATION.HORIZONTAL) ## Vertical
 ```
+<br>
+#### Horizontal <br>
+https://github.com/woosang1/ws-calendarLayout/assets/45825518/5b2aeb2a-46d4-4f67-821d-f151fe0a8126
+<br>
+
+#### Vertical <br>
+https://github.com/woosang1/ws-calendarLayout/assets/45825518/b7250f52-54b0-411f-a9d4-25f144b7b4c0
+<br>
+
 
 ### MaxMonth
 How many months will you expose? Default: 6<br>
