@@ -21,7 +21,7 @@
 ## Preview
 <img src="https://github.com/woosang1/ws-calendarLayout/assets/45825518/bd61fceb-e677-48c2-b0cf-f4a7638fb95e" alt="preview" width="500" height="1000">
 <br>
-https://github.com/woosang1/ws-calendarLayout/assets/45825518/f332ac1d-faf5-4428-a54d-0f4b6f510474
+<img src="https://github.com/woosang1/ws-calendarLayout/assets/45825518/555c456a-2814-4bc0-a5e1-219552003876" alt="preview" width="500" height="1000">
 
 
 ## Including in your project 
@@ -100,11 +100,11 @@ setOrientation(orientation = ORIENTATION.HORIZONTAL) ## Vertical
 ```
 <br>
 #### Horizontal <br>
-https://github.com/woosang1/ws-calendarLayout/assets/45825518/5b2aeb2a-46d4-4f67-821d-f151fe0a8126
+<img src="https://github.com/woosang1/ws-calendarLayout/assets/45825518/af13a09a-3f46-4c85-b203-247240f0f4ff" alt="preview" width="500" height="1000">
 <br>
 
 #### Vertical <br>
-https://github.com/woosang1/ws-calendarLayout/assets/45825518/b7250f52-54b0-411f-a9d4-25f144b7b4c0
+<img src="https://github.com/woosang1/ws-calendarLayout/assets/45825518/d43a3285-17e7-4bc5-b77f-dc168d971d5c" alt="preview" width="500" height="1000">
 <br>
 
 
